@@ -1,4 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Post } from 'src/app/shared/model/post';
+import { Contract } from 'src/app/shared/model/contract';
+import { DataService } from 'src/app/shared/service/data.service';
+import { AddContractComponent } from './add-contract/add-contract.component';
+import { DeleteContractComponent } from './delete-contract/delete-contract.component';
+
+
 
 @Component({
   selector: 'app-contract-contract',
@@ -7,9 +19,137 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContractContractComponent implements OnInit {
 
-  constructor() { }
+  allContracts : Contract[] = [];
+  allPosts : Post[] = [];
+  displayedColumns: string[] = ['name', 'mobile', 'Post', 'gender','action'];
+  dataSource!: MatTableDataSource<Contract>;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(
+    public dialog : MatDialog,
+    private dataApi : DataService,
+    private _snackBar : MatSnackBar
+  ) { }
 
   ngOnInit(): void {
+    this.getAllContracts();
+    this.getAllPosts();
   }
 
+  addContract() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      title : 'Register Contract',
+      buttonName : 'Register'
+    }
+
+    const dialogRef = this.dialog.open(AddContractComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      if(data) {
+        this.dataApi.addContract(data);
+        this.openSnackBar("Registration of patient is successful.", "OK")
+      }
+    })
+  }
+
+
+  getAllContracts() {
+    this.dataApi.getAllContracts().subscribe(res => {
+      this.allContracts = res.map((e:any) => {
+        const data = e.payload.doc.data();
+        data.contract_id = e.payload.doc.id;
+        return data;
+      })
+
+      this.dataSource = new MatTableDataSource(this.allContracts);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
+  }
+
+  getAllPosts() {
+    this.dataApi.getAllPosts().subscribe(res => {
+      this.allPosts = res.map((e : any) => {
+        const data = e.payload.doc.data();
+        data.id = e.payload.doc.id;
+        return data;
+      })
+    })
+  }
+
+  getPostName(id : string) {
+    let PostName = '';
+    this.allPosts.forEach(element => {
+      if(element.id == id) {
+        PostName = element.name;
+      }
+    });
+    return PostName;
+  }
+
+  viewContract(row : any) {
+    window.open('/directeur/contract/'+row.Contract_id,'_blank');
+  }
+
+  editContract(row : any) {
+    if(row.Contract_id == null || row.Contract_name == null) {
+      return;
+    }
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = row;
+    dialogConfig.data.title = "Edit Contract";
+    dialogConfig.data.buttonName = "Update";
+    dialogConfig.data.admission_date = row.admission_date.toDate();
+
+    console.log(dialogConfig.data);
+
+    const dialogRef = this.dialog.open(AddContractComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      if(data) {
+        this.dataApi.updateContract(data);
+        this.openSnackBar("Contract is updated successfully.", "OK")
+      }
+    })
+  }
+
+  deleteContract(row : any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      title : 'Delete Contract',
+      patientName : row.Contract_name
+    }
+
+    const dialogRef = this.dialog.open(DeleteContractComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      if(data) {
+        console.log(row);
+        this.dataApi.deleteContract(row.Contract_id);
+        this.openSnackBar("Contract deleted successfully.", "OK")
+      }
+    })
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 }

@@ -1,46 +1,77 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore'
+
+import { MatButtonModule } from '@angular/material/button';
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { environment } from 'src/environments/environment';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { MaterialModule } from './material/material.module';
+
 import { LoginComponent } from './component/auth/login/login.component';
-import { PostComponent } from './component/directeur/post/post.component';
 import { PostPostComponent } from './component/directeur/post-post/post-post.component';
 import { AddPostComponent } from './component/directeur/post-post/add-post/add-post.component';
 import { DeletePostComponent } from './component/directeur/post-post/delete-post/delete-post.component';
 import { UpdatePostComponent } from './component/directeur/post-post/update-post/update-post.component';
-import { ContractComponent } from './component/directeur/contract/contract.component';
 import { ContractContractComponent } from './component/directeur/contract-contract/contract-contract.component';
 import { AddContractComponent } from './component/directeur/contract-contract/add-contract/add-contract.component';
 import { UpdateContractComponent } from './component/directeur/contract-contract/update-contract/update-contract.component';
 import { DeleteContractComponent } from './component/directeur/contract-contract/delete-contract/delete-contract.component';
 import { SidebarComponent } from './component/directeur/sidebar/sidebar.component';
-import { MaterialComponent } from './material/material.component';
+import { ViewContractComponent } from './component/directeur/contract-contract/view-contract/view-contract.component';
+import { ViewPostComponent } from './component/directeur/post-post/view-post/view-post.component';
+ 
 
 @NgModule({
   declarations: [
     AppComponent,
+
     LoginComponent,
-    PostComponent,
+    SidebarComponent,
+
     PostPostComponent,
     AddPostComponent,
     DeletePostComponent,
+    ViewPostComponent,
     UpdatePostComponent,
-    ContractComponent,
+    
     ContractContractComponent,
     AddContractComponent,
     UpdateContractComponent,
     DeleteContractComponent,
-    SidebarComponent,
-    MaterialComponent
+    ViewContractComponent,
+
+   
+  
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    ReactiveFormsModule,
+    FormsModule,
+
+    MatButtonModule,
+    
+    MaterialModule
+
+    
+    
+
+    
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AddPostComponent]
 })
 export class AppModule { }

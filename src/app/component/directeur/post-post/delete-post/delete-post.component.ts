@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-delete-post',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeletePostComponent implements OnInit {
 
-  constructor() { }
+  doctorName !: string;
+  title !: string;
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) data : any,
+    private dialogRef : MatDialogRef<DeletePostComponent>
+  ) {
+      this.doctorName = data.doctorName;
+      this.title = data.title;
+  }
 
   ngOnInit(): void {
   }
 
+  close() {
+    this.dialogRef.close();
+  }
+
+  delete() {
+    const deleteDoctor = true;
+    this.dialogRef.close(deleteDoctor);
+  }
 }
