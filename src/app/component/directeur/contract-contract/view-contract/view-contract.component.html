@@ -1,24 +1,61 @@
-<h2 style="font-weight: 700;" class="mt-3" color="primary">Contract Information</h2>
-<mat-card class="m-3">
-
-  <mat-card-title class="pb-2">
-    Contract Name : <b>{{ContractObj?.Contract_name}}</b>
-  </mat-card-title>
-  <mat-divider></mat-divider>
-
-    <div class="row pt-3">
-      <div class="col-md-6">
-        <mat-card-content>
-          <span> Doctor Name : </span> {{ContractObj.doctor_name}} <br>
-          <span> Mobile : </span> {{ContractObj.mobile}} <br>
-          <span> Prescription : </span> {{ContractObj.prescription}}
-        </mat-card-content>
-      </div>
-      <div class="col-md-6">
-       <mat-card-content>
-        <span> Gender : </span> {{ContractObj.gender}} <br>
-        <span> Adminssion Date : </span> {{ContractObj.admission_date | date}}
-       </mat-card-content>
-      </div>
+<mat-card class="m-3 contract-card">
+  <div class="contract-card-title">Contrat de travail : {{ContractObj?.Nom_complet}} </div>
+  <mat-divider class="contract-card-divider"></mat-divider>
+  <div class="row pt-3">
+    <div class="col-md-6">
+      <mat-card-content class="contract-card-content">
+        <tr>
+          <td><b>Poste </b></td>
+          <td> : {{ContractObj.title_post}}</td>
+        </tr>
+        <tr>
+          <td><b>Mobile </b></td>
+          <td> : {{ContractObj.mobile}}</td>
+        </tr>
+        <tr>
+          <td><b> CNE </b></td>
+          <td> : {{ContractObj.CNE}}</td>
+        </tr>
+        <tr>
+          <td><b>Genre </b></td>
+          <td> : {{ContractObj.gender}}</td>
+        </tr>
+        <tr>
+          <td><b>Salaire </b></td>
+          <td> : 9000</td>
+        </tr>
+      </mat-card-content>
     </div>
+    <div class="col-md-6">
+      <mat-card-content class="contract-card-content">
+        <table>
+          <tr>
+            <td><b>Directeur </b></td>
+            <td> : ANIME FARAH</td>
+          </tr>
+          <tr>
+            <td><b>Entreprise  </b></td>
+            <td> : Company Centrale</td>
+          </tr>
+          <tr>
+            <td><b>Type de contrat </b></td>
+            <td> : CDI</td>
+          </tr>
+          <tr>
+            <td><b>Date de début </b></td>
+            <td> : {{ContractObj.date_debut | date}}</td>
+          </tr>
+          <tr>
+            <td><b>Date de fin </b></td>
+            <td> : {{ContractObj.date_fin | date}}</td>
+          </tr>
+        </table>
+      </mat-card-content>
+    </div>
+  </div>
+
+  <!-- Bouton pour imprimer la page -->
+  <div class="print-btn-container">
+    <button mat-raised-button color="primary" onclick="window.print()">Imprimer</button>
+  </div>
 </mat-card>

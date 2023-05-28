@@ -22,7 +22,7 @@ import { DeletePostComponent } from './delete-post/delete-post.component';
 export class PostPostComponent implements OnInit {
 
   PostsArr : any[] = [];
-  displayedColumns: string[] = ['name', 'mobile', 'email', 'department', 'gender','action'];
+  displayedColumns: string[] = ['title_post', 'qualification', 'Domaine', 'Salaire', 'contrat','action'];
   dataSource!: MatTableDataSource<Post>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -58,7 +58,7 @@ export class PostPostComponent implements OnInit {
   }
 
   editPost(row : any) {
-    if(row.id == null || row.name == null) {
+    if(row.id == null || row.title_post == null) {
       return;
     }
     const dialogConfig = new MatDialogConfig();
@@ -67,7 +67,6 @@ export class PostPostComponent implements OnInit {
     dialogConfig.data = row;
     dialogConfig.data.title = "Edit Post";
     dialogConfig.data.buttonName = "Update";
-    dialogConfig.data.birthdate = row.birthdate.toDate();
 
     const dialogRef = this.dialog.open(AddPostComponent, dialogConfig);
 
@@ -85,7 +84,7 @@ export class PostPostComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
       title : 'Delete Post',
-      PostName : row.name
+      PostName : row.title_post
     }
 
     const dialogRef = this.dialog.open(DeletePostComponent, dialogConfig);

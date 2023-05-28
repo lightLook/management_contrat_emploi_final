@@ -5,33 +5,44 @@
 
     <mat-grid-list cols="2">
 
+         
+
       <mat-grid-tile>
         <div>
           <mat-form-field>
-            <mat-label>Full name</mat-label>
+            <mat-label>Nom complet</mat-label>
             <input matInput
-                    placeholder="Ex. code logic"
-                    formControlName="Contract_name"
+                    placeholder="Ex. Youssef"
+                    formControlName="Nom_complet"
                     required>
-            <mat-error *ngIf="form.get('Contract_name')?.invalid || form.get('Contract_name')?.dirty || form.get('Contract_name')?.touched">Enter full name</mat-error>
+            <mat-error *ngIf="form.get('Nom_complet')?.invalid || form.get('Nom_complet')?.dirty || form.get('Nom_complet')?.touched">Enter full name</mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>Mobile number : </mat-label>
             <input matInput
-                    placeholder="9865452152"
+                    placeholder="0680801091"
                     formControlName="mobile"
                     required>
             <mat-error *ngIf="form.get('mobile')?.invalid || form.get('mobile')?.dirty || form.get('mobile')?.touched">Enter valid mobile number</mat-error>
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Prescription</mat-label>
+            <mat-label>Email  : </mat-label>
             <input matInput
-                    placeholder="ex. medicines"
-                    formControlName="prescription"
+                    placeholder="Youssef@gmail.com"
+                    formControlName="email"
                     required>
-            <mat-error *ngIf="form.get('prescription')?.invalid || form.get('prescription')?.dirty || form.get('prescription')?.touched">Enter valid prescription </mat-error>
+            <mat-error *ngIf="form.get('email')?.invalid || form.get('email')?.dirty || form.get('email')?.touched">Enter valid Emailr</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>CNE</mat-label>
+            <input matInput
+                    placeholder="ex. JR12334"
+                    formControlName="CNE"
+                    required>
+            <mat-error *ngIf="form.get('CNE')?.invalid || form.get('CNE')?.dirty || form.get('CNE')?.touched">Enter valid CNE </mat-error>
           </mat-form-field>
         </div>
       </mat-grid-tile>
@@ -41,27 +52,35 @@
           <mat-label class="me-3">Gender : </mat-label>
           <br>
           <mat-radio-group aria-label="Select a gender" color="primary" formControlName="gender">
-            <mat-radio-button value="male">Male</mat-radio-button>
-            <mat-radio-button value="female">Female</mat-radio-button>
-            <mat-radio-button value="other">Other</mat-radio-button>
-          </mat-radio-group>
+            <mat-radio-button value="homme">homme</mat-radio-button>
+            <mat-radio-button value="femme">femme</mat-radio-button>
+           </mat-radio-group>
 
           <mat-form-field class="mt-4">
-            <mat-label>Post</mat-label>
+            <mat-label>Poste disponible</mat-label>
             <mat-select formControlName="Post_id" name="Post_id">
               <mat-option *ngFor="let Post of allPosts" [value]="Post.Post_id">
-                {{Post.Post_name}}
+                {{Post.title_post}}
               </mat-option>
             </mat-select>
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Admission Date</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="admission_date">
+            <mat-label>Debut contrat</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date_debut">
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="form.get('admission_date')?.invalid || form.get('admission_date')?.dirty || form.get('admission_date')?.touched">Choose valid admission date</mat-error>
+            <mat-error *ngIf="form.get('date_debut')?.invalid || form.get('date_debut')?.dirty || form.get('date_debut')?.touched">Choose valid admission date</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Fin contrat</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="date_fin">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error *ngIf="form.get('date_fin')?.invalid || form.get('date_fin')?.dirty || form.get('date_fin')?.touched">Choose valid admission date</mat-error>
           </mat-form-field>
 
         </div>

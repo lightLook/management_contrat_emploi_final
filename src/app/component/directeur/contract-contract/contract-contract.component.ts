@@ -62,7 +62,7 @@ export class ContractContractComponent implements OnInit {
     this.dataApi.getAllContracts().subscribe(res => {
       this.allContracts = res.map((e:any) => {
         const data = e.payload.doc.data();
-        data.contract_id = e.payload.doc.id;
+        data.Contract_id = e.payload.doc.id;
         return data;
       })
 
@@ -86,7 +86,7 @@ export class ContractContractComponent implements OnInit {
     let PostName = '';
     this.allPosts.forEach(element => {
       if(element.id == id) {
-        PostName = element.name;
+        PostName = element.title_post;
       }
     });
     return PostName;
@@ -97,7 +97,7 @@ export class ContractContractComponent implements OnInit {
   }
 
   editContract(row : any) {
-    if(row.Contract_id == null || row.Contract_name == null) {
+    if(row.Contract_id == null || row.Nom_complet == null) {
       return;
     }
     const dialogConfig = new MatDialogConfig();
@@ -106,7 +106,8 @@ export class ContractContractComponent implements OnInit {
     dialogConfig.data = row;
     dialogConfig.data.title = "Edit Contract";
     dialogConfig.data.buttonName = "Update";
-    dialogConfig.data.admission_date = row.admission_date.toDate();
+    dialogConfig.data.date_debut = row.date_debut.toDate();
+    dialogConfig.data.date_fin = row.date_fin.toDate();
 
     console.log(dialogConfig.data);
 
@@ -126,7 +127,7 @@ export class ContractContractComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
       title : 'Delete Contract',
-      patientName : row.Contract_name
+      patientName : row.Nom_complet
     }
 
     const dialogRef = this.dialog.open(DeleteContractComponent, dialogConfig);

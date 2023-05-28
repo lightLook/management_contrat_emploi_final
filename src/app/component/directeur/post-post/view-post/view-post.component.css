@@ -9,7 +9,13 @@ span {
   }
   
   table {
-    width: 100%;
+    border-collapse: collapse;
+  }
+  td, th {
+    padding: 10px;
+  }
+  tr {
+    margin-bottom: 10px;
   }
   
   .mat-form-field {

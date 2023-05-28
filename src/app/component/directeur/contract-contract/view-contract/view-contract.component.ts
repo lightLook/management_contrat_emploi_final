@@ -26,7 +26,8 @@ constructor(
   getContractById() {
     this.dataApi.getContractById(this.Contract_id).subscribe(res => {
       this.ContractObj = res;
-      this.ContractObj.admission_date = this.ContractObj.admission_date.toDate();
+      this.ContractObj.date_debut = this.ContractObj.date_debut.toDate();
+      this.ContractObj.date_fin = this.ContractObj.date_fin.toDate();
       console.log(res);
     })
   }

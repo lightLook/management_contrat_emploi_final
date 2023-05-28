@@ -10,19 +10,36 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class AddPostComponent implements OnInit {
 
   form !: FormGroup;
+
+
   title !: string;
-  name !: string;
-  mobile !: string;
-  email !: string;
-  gender !: string;
-  department !: string;
-  birthdate !: Date;
-  qualification !: string;
   id !: string;
   buttonName !: string;
 
-  departments : string[] = ['Orthopedics','Cardiology','Otorhinolaryngology','Ophthalmology','Psychiatry','Internal medicine','Radiology','Surgery','Pediatrics','Neurology','Urology','Anesthesiology','Nephrology','Neurosurgery','Gastroenterology','Pulmonology','General surgery','Intensive care medicine','Oncology','Pathology','Emergency medicine','Neonatology','Hematology','Pharmacy','Physical medicine and rehabilitation','Vascular surgery','Geriatrics','Gynaecology','Cardiac surgery','Outpatient department','Nuclear medicine','Infectious diseases','Clinical pathology','Intensive care unit','operating room','Casualty department']
 
+//----------
+
+  title_post !: string;
+  
+ 
+  contrat !: string;
+  Salaire !: Number;
+  
+  Domaine !: string;
+  Domaines : string[]  = ["Ventes",   "Marketing",    "Fabrication",  "Finance",    "Ressources humaines",    "Approvisionnement",     "Recherche et développement",   "Informatique"   ];
+  qualification !: string;
+
+//create automatique
+   
+  Annonce_N : Number = 999;
+  disponible !: number ;
+
+
+ 
+  
+
+
+  
   constructor(
     private fb : FormBuilder,
     @Inject(MAT_DIALOG_DATA) data : any,
@@ -30,12 +47,20 @@ export class AddPostComponent implements OnInit {
   ) {
       this.title = data.title;
       this.id = data.id;
-      this.name = data.name;
-      this.mobile = data.mobile;
-      this.email = data.email;
-      this.gender = data.gender;
-      this.department = data.department;
-      this.birthdate = data.birthdate;
+      this.title_post = data.title_post;
+
+      this.Salaire = data.Salaire;
+
+      this.contrat = data.contrat;
+      this.Domaine = data.Domaine;
+
+       
+      this.Annonce_N = data.Annonce_N+1;
+      this.disponible = data.disponible;
+
+ 
+      
+
       this.qualification = data.qualification;
       this.buttonName = data.buttonName;
    }
@@ -43,13 +68,16 @@ export class AddPostComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       id: [this.id, []],
-      name : [this.name, [Validators.required]],
-      mobile : [this.mobile, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
-      email : [this.email, [Validators.required, Validators.email]],
-      gender : [this.gender, [Validators.required]],
-      department : [this.department, [Validators.required]],
-      birthdate : [this.birthdate, [Validators.required]],
-      qualification : [this.qualification,[Validators.required]]
+      disponible: [this.disponible, []],
+      
+      title_post : [this.title_post, [Validators.required]],
+      Domaine : [this.Domaine, [Validators.required]],
+      contrat : [this.contrat, [Validators.required]],
+      Salaire : [this.Salaire, [Validators.required]],
+      
+      qualification : [this.qualification,[Validators.required]],
+
+      
     })
   }
 

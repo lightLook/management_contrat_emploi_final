@@ -1,10 +1,17 @@
 export interface Post {
-    id : string;
-    name : string;
-    mobile : string;
-    email : string;
-    qualification : string;
-    gender : string;
-    department : string;
-    birthdate : Date
+title_post : string;
+id : string;
+
+contrat : string;
+Salaire : Number;
+
+Domaine : string;
+qualification : string;
+
+ 
+publiee :  Date   ;
+Entreprise : string  ;
+Annonce_N : Number  ;
+disponible : number  ;
+
 }

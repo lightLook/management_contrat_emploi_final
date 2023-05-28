@@ -84,7 +84,7 @@ export class  ViewPostComponent implements OnInit {
   }
 
   editContract(row : any) {
-    if(row.Contract_id == null || row.Contract_name == null) {
+    if(row.Contract_id == null || row.Nom_complet == null) {
       return;
     }
     const dialogConfig = new MatDialogConfig();
@@ -93,7 +93,8 @@ export class  ViewPostComponent implements OnInit {
     dialogConfig.data = row;
     dialogConfig.data.title = "Edit Contract";
     dialogConfig.data.buttonName = "Update";
-    dialogConfig.data.admission_date = row.admission_date.toDate();
+    dialogConfig.data.date_debut = row.date_debut.toDate();
+    dialogConfig.data.date_fin = row.date_fin.toDate();
 
     console.log(dialogConfig.data);
 
